@@ -45,6 +45,10 @@ dependencies:
 - time
 - case-insensitive
 - wai
+- http-types
+- fb
+- yesod-auth-fb
+- yesod-fb
 
 # The library contains all of our application code. The executable
 # defined below is just a thin wrapper.

@@ -23,6 +23,7 @@ import           Yesod.Default.Config2       (applyEnvValue, configSettingsYml)
 import           Yesod.Default.Util          (WidgetFileSettings,
                                               widgetFileNoReload,
                                               widgetFileReload)
+import qualified Facebook                    as FB
 
 -- | Runtime settings to configure this application. These settings can be
 -- loaded from various sources: defaults, environment variables, config files,
@@ -32,7 +33,7 @@ data AppSettings = AppSettings
     -- ^ Directory from which to serve static files.
     , appDatabaseConf           :: PostgresConf
     -- ^ Configuration settings for accessing the database.
-    , appRoot                   :: Maybe Text
+    , appRoot                   :: Text
     -- ^ Base for all generated URLs. If @Nothing@, determined
     -- from the request headers.
     , appHost                   :: HostPreference
@@ -62,6 +63,7 @@ data AppSettings = AppSettings
 
     , appAuthDummyLogin         :: Bool
     -- ^ Indicate if auth dummy login should be enabled.
+    , fbCreds                   :: FB.Credentials
     }
 
 instance FromJSON AppSettings where
@@ -74,7 +76,7 @@ instance FromJSON AppSettings where
 #endif
         appStaticDir              <- o .: "static-dir"
         appDatabaseConf           <- o .: "database"
-        appRoot                   <- o .:? "approot"
+        appRoot                   <- o .: "approot"
         appHost                   <- fromString <$> o .: "host"
         appPort                   <- o .: "port"
         appIpFromHeader           <- o .: "ip-from-header"
@@ -90,7 +92,16 @@ instance FromJSON AppSettings where
 
         appAuthDummyLogin         <- o .:? "auth-dummy-login"      .!= defaultDev
 
+        fbCreds                   <- o .: "facebook"
+
         return AppSettings {..}
+
+instance FromJSON FB.Credentials where
+    parseJSON = withObject "Credentials" $ \o -> do
+        appName   <- o .: "app-name"
+        appId     <- o .: "app-id"
+        appSecret <- o .: "app-secret"
+        return FB.Credentials {..}
 
 -- | Settings for 'widgetFile', such as which template languages to support and
 -- default Hamlet settings.

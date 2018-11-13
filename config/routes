@@ -1,6 +1,12 @@
-/static StaticR Static appStatic
+/static           StaticR        Static appStatic
+/auth             AuthR          Auth   getAuth
+/login            CordecLoginR   POST
+/usuario          CordecSignupR  GET POST
 
-/favicon.ico FaviconR GET
-/robots.txt RobotsR GET
+/favicon.ico      FaviconR       GET
+/robots.txt       RobotsR        GET
 
-/ HomeR GET 
+/                 HomeR          GET
+/tudo             TudoR          GET
+/escrever         EscreverR      POST
+/cordel/#CordelId CordelR        GET

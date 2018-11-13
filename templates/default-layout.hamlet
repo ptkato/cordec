@@ -1,50 +1,36 @@
-
-<!-- Static navbar -->
-<nav .navbar.navbar-default.navbar-static-top>
-    <div .container>
-        <div .navbar-header>
-            <button type="button" .navbar-toggle.collapsed data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-
-        <div #navbar .collapse.navbar-collapse>
-            <ul .nav.navbar-nav>
-                $forall MenuItem label route _ <- navbarLeftFilteredMenuItems
-                    <li :Just route == mcurrentRoute:.active>
-                        <a href="@{route}">#{label}
-
-            <ul .nav.navbar-nav.navbar-right>
-                $forall MenuItem label route _ <- navbarRightFilteredMenuItems
-                    <li :Just route == mcurrentRoute:.active>
-                        <a href="@{route}">#{label}
-
-<!-- Page Contents -->
-
-<div .container>
-    $if not $ Just HomeR == mcurrentRoute
-        <ul .breadcrumb>
-            $forall bc <- parents
+$newline never
+$doctype 5
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <!-- Less CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.3/less.min.js"></script>
+        <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <title>#{pageTitle p}
+        ^{pageHead p}
+    <body>
+        $forall (status, msg) <- msgs
+            <p class="message #{status}">#{msg}
+        <nav>
+            <ul>
                 <li>
-                    <a href="@{fst bc}">#{snd bc}
-
-            <li .active>#{title}
-
-    $maybe msg <- mmsg
-      <div .alert.alert-info #message>#{msg}
-
-
-$if (Just HomeR == mcurrentRoute)
-    ^{widget}
-$else
-    <div .container>
-        <div .row>
-            <div .col-md-12>
-                ^{widget}
-
-<!-- Footer -->
-<footer .footer>
-    <div .container>
-        <p .text-muted>
-            #{appCopyright $ appSettings master}
+                    <a href=@{HomeR}>Página Inicial
+                <li>
+                    <a href=@{TudoR}>Cordéis
+                <li>
+                    <a href=@{HomeR}>Sobre
+                <li>
+                    <a href=@{HomeR}>Contato
+                <li>
+                    <form method="POST" action=@{CordecLoginR}>
+                        <input type="text" name="email">
+                        <input type="text" name="senha">
+                        <button>Entrar
+                        <a href=@{CordecSignupR}>Cadastre-se
+                        <a href="https://cordec-ptkato.c9users.io/auth/page/fb/login">Facebook
+        <main>
+            ^{pageBody p}
