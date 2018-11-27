@@ -1,7 +1,100 @@
-ul {
-    list-style: none;
+@font-face {
+    font-family: 'Xilosa';
+    src: url('../fonts/xilosa_.ttf');
 }
-li {
+
+.xilosa {
+    font-family: Xilosa !important;
+}
+
+.xilosa.nav-size {
+    font-size: 1.7em;
+}
+
+.xilogravura {
+    font-size: 3em;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.nav-border {
+    border-bottom: 3px solid black;
+}
+
+.btn-fix {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     display: inline-block;
-    padding: 5px 10px;
+    font-size: 1em;
+    font-weight: normal;
+    height: 2em;
+    text-decoration: none;
+}
+
+.size-fix {
+    line-height: 0.5em;
+    margin-top: 0.5em;
+}
+.inicial div {
+    margin-bottom: 1.3em;
+    margin-left: 20px;
+    display: inline-block;
+}
+.inicial div span {
+    font-size: 1.3em;
+    float: left;
+}
+p.cordel {
+    font-size: 1em;
+    margin: 0.5em 0 3em
+}
+
+nav {
+    margin-bottom: 3em;
+    padding: 1.5em 0;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.resize {
+    height: 4.7em;
+}
+
+.body {
+    position:fixed;
+    height: 100%;
+    width: 100%;
+    background: url(../images/fundo-papel-velho.jpg) fixed;
+    background-size: cover;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+body {
+    padding-bottom: 50px;
+}
+
+.audio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center 
+}
+
+p {
+    margin: 1em 0;
+    font-size: 1.3em;
+    font-family: sans-serif;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.img-fluid-height {
+    max-height: 85%;
+    width: 85%;
 }

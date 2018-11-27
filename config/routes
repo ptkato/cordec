@@ -1,12 +1,22 @@
-/static           StaticR        Static appStatic
-/auth             AuthR          Auth   getAuth
-/login            CordecLoginR   POST
-/usuario          CordecSignupR  GET POST
-
-/favicon.ico      FaviconR       GET
-/robots.txt       RobotsR        GET
-
-/                 HomeR          GET
-/tudo             TudoR          GET
-/escrever         EscreverR      POST
-/cordel/#CordelId CordelR        GET
+ /static                        StaticR        Static appStatic
+ /auth                          AuthR          Auth   getAuth
+ /login                         CordecLoginR   POST
+ /logout                        CordecLogoutR  POST
+ /usuario                       CordecSignupR  GET POST
+ 
+ /favicon.ico                   FaviconR       GET
+ /robots.txt                    RobotsR        GET
+ 
+ /                              HomeR          GET
+ /inicio/projeto                ConhecaR       GET
+ /inicio/cordel                 ICordelR       GET
+ /inicio/patrimonio             PatrimonioR    GET
+ /midia/podcast                 PodcastR       GET
+ /midia/video                   VideoR         GET
+ /midia/imagens                 ImagensR       GET
+ /cordel                        TudoR          GET
+ /cordel/#CordelId              CordelR        GET
+!/cordel/expo                   ExpoR          GET
+!/cordel/escrever               EscreverR      POST
+ /cordel/like/#CordelId         LikeR          POST
+ /cordel/apagar/#CordelId       ApagarR        POST

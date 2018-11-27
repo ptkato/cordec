@@ -5,8 +5,14 @@ User
     UniqueUserEmail    email
     deriving Show
 
+Likes
+    userId      UserId
+    cordelId    CordelId
+    UniqueLike userId cordelId
+
 Cordel
     title       Text
     content     Textarea
+    likes       Int
     submitter   UserId
-    deriving Show
+    deriving Show   

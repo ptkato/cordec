@@ -8,11 +8,10 @@ module Handler.Login where
 
 import Import
 import Database.Persist.Postgresql
-import Network.HTTP.Types.Status
 
 formLogin :: FormInput Handler (Text, Text)
 formLogin = (,)
-    <$> ireq textField "usuario"
+    <$> ireq textField "email"
     <*> ireq passwordField "senha"
 
 postCordecLoginR :: Handler Html
@@ -27,6 +26,11 @@ postCordecLoginR = do
             else notAuthenticated
         _ -> notAuthenticated
 
+postCordecLogoutR :: Handler Html
+postCordecLogoutR = do
+    deleteSession "_USER"
+    redirect HomeR
+
 formUser :: FormInput Handler User
 formUser = User
     <$> ireq emailField "email"
@@ -35,22 +39,33 @@ formUser = User
 
 postCordecSignupR :: Handler Html
 postCordecSignupR = do
-    user <- runInputPost formUser
-    uid <- runDB $ insert user
-    setSession "_USER" . tshow $ fromSqlKey uid
-    redirect CordecSignupR
+    u <- lookupSession "_USER"
+    case u of
+        Just _ -> redirect TudoR
+        _ -> do
+            user <- runInputPost formUser
+            uid <- runDB $ insert user
+            setSession "_USER" . tshow $ fromSqlKey uid
+            redirect CordecSignupR
 
 getCordecSignupR :: Handler Html
 getCordecSignupR = do
-    sess <- lookupSession "_USER"
     defaultLayout $ [whamlet|
-        <form method="POST" action=@{CordecSignupR}>
-            Email: <input type="email" name="email">
-            Nome: <input type="text" name="nome">
-            Senha: <input type="password" name="senha">
-            <button>
-                $maybe _ <- sess
-                    Atualizar
-                $nothing
-                    Cadastrar
+        <div class="row">
+            <div class="col-2">
+                <img class="img-fluid bottom" src=@{StaticR images_religioso_04_png}>
+            <div class="col-8">
+                <form method="POST" action=@{CordecSignupR}>
+                    <div class="form-group">
+                        <label for="email">Email: 
+                        <input id="email" class="form-control border-1 border-dark rounded-0" type="email" name="email" required>
+                    <div class="form-group">
+                        <label for="nome">Nome: 
+                        <input id="nome" class="form-control border-1 border-dark rounded-0" type="text" name="nome">
+                    <div class="form-group">
+                        <label for="senha">Senha:
+                        <input id="senha" class="form-control border-1 border-dark rounded-0" type="password" name="senha" required>
+                    <button class="btn border-1 border-dark rounded-0">Cadastrar
+            <div class="col-2">
+                <img class="img-fluid bottom" src=@{StaticR images_maria_bonita_05_png}>
     |]

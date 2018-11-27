@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+	body{
+		background-color:#ffdaaa;
+	}
+	
+	li{
+		display: inline-block;		
+	}
+	
+	a:link{
+		color:#5c5f60;
+		text-decoration:none;
+				
+	}
+	
+	a:visited{
+		color:#5c5f60;
+	}
+	
+	a:hover{
+		color:#5c5f60;
+	}
+	
+	a:active{
+		color:#5c5f60;
+	}
+	
+	.menu{
+    display: flex;
+    justify-content: center;
+    border-bottom: 5px solid #ccc;    
+	}
+	
+	.right{
+		float:right;
+		padding-left: 10px;
+		padding-right: 10px;
+		font-size:18px;
+		text-transform: uppercase;		
+	}

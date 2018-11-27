@@ -30,6 +30,7 @@ instance Yesod App where
     makeLogger = return . appLogger
     
     defaultLayout w = do
+        sess <- lookupSession "_USER"
         p <- widgetToPageContent $ do
             addStylesheet $ StaticR css_style_css
             setTitle "Cordec"
@@ -37,12 +38,10 @@ instance Yesod App where
         msgs <- getMessages
         withUrlRenderer $(hamletFile "templates/default-layout.hamlet")
 
-    isAuthorized (AuthR _)        _ = return Authorized
-    isAuthorized (StaticR _)      _ = return Authorized
-    isAuthorized CordecLoginR     _ = return Authorized
-    isAuthorized CordecSignupR    _ = return Authorized
-    isAuthorized HomeR            _ = return Authorized
-    isAuthorized _ _ = isAuthenticated
+    isAuthorized EscreverR    _ = isAuthenticated
+    isAuthorized (ApagarR _)  _ = isAuthenticated
+    isAuthorized (LikeR _)    _ = isAuthenticated
+    isAuthorized _            _ = return Authorized
     
     approot = ApprootMaster $ appRoot . appSettings
 
