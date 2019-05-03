@@ -20,3 +20,4 @@ cabal.sandbox.config
 \#*
 aulahaskell.cabal
 static/cordel/*
+config/settings.yml
